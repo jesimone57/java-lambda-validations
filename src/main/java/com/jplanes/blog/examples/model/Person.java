@@ -24,13 +24,22 @@ public class Person {
 	public String getLastName() {
 		return lastName;
 	}
+	public void setLastName(String s) {
+		this.lastName = s;
+	}
 
 	public String getEmail() {
 		return email;
 	}
+	public void setEmail(String s) {
+		this.email = s;
+	}
 
 	public int getAge() {
 		return age;
+	}
+	public void setAge(int age) {
+		this.age = age;
 	}
 
 }

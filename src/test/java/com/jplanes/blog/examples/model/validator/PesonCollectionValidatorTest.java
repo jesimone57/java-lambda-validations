@@ -17,7 +17,14 @@ public class PesonCollectionValidatorTest {
 	@Before
 	public void setUp() {
 		validator = new PersonCollectionValidator();
-		person = new Person("george", "clinton", "bill@gmail.com", 60);
+		person = new Person("bill", "clinton", "bill@gmail.com", 60);
+	}
+
+	@Test
+	public void testOk() {
+		validator.validate(person);
+		List<ValidationResult> results = validator.getResults();
+		assertEquals(0, results.size());
 	}
 
 	@Test
@@ -32,12 +39,43 @@ public class PesonCollectionValidatorTest {
 	}
 
 	@Test
+	public void lastnameNull() {
+		person.setLastName(null);
+		validator.validate(person);
+		List<ValidationResult> results = validator.getResults();
+		listResults(results);
+		assertEquals(1, results.size());
+		assertEquals("lastname must not be null and between 4 and 30 characters long", results.get(0).getMesssage());
+	}
+
+	@Test
 	public void firstnameBillOrWilliam() {
+		person.setFirstName("george");
 		validator.validate(person);
 		List<ValidationResult> results = validator.getResults();
 		listResults(results);
 		assertEquals(1, results.size());
 		assertEquals("firstname george does not match bill or william", results.get(0).getMesssage());
+	}
+
+	@Test
+	public void email1() {
+		person.setEmail("a");
+		validator.validate(person);
+		List<ValidationResult> results = validator.getResults();
+		listResults(results);
+		assertEquals(1, results.size());
+		assertEquals("email : must have more than 3 chars.", results.get(0).getMesssage());
+	}
+
+	@Test
+	public void age1() {
+		person.setAge(200);
+		validator.validate(person);
+		List<ValidationResult> results = validator.getResults();
+		listResults(results);
+		assertEquals(1, results.size());
+		assertEquals("must be lower than 110.", results.get(0).getMesssage());
 	}
 
 	private void listResults(List<ValidationResult> results) {
