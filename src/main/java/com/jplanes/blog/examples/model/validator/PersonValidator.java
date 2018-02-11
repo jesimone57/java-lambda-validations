@@ -36,5 +36,4 @@ public class PersonValidator implements IPersonValidator {
 				.test(person.getFirstName()).throwIfInvalid("firstname");
 
 	}
-	
 }

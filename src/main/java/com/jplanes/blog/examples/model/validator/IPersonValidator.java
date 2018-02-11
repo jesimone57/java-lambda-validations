@@ -5,5 +5,5 @@ import com.jplanes.blog.examples.model.Person;
 public interface IPersonValidator {
 
 	void validate(Person person);
-	
+
 }
