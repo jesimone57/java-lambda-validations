@@ -3,6 +3,8 @@ package com.jplanes.blog.examples.validations;
 
 import java.util.List;
 
+import static java.lang.String.format;
+
 public class ValidationResult {
 	private boolean valid;
 	private String messsage;
@@ -33,7 +35,7 @@ public class ValidationResult {
 	}
 
 	// supplant the message with a new message
-	public void collectIfInvalid(String message, List<ValidationResult> results) {
+	public void collectIfInvalidWithMessage(String message, List<ValidationResult> results) {
 		if ( ! isvalid()) results.add(new ValidationResult(false, message));
 	}
 
@@ -42,9 +44,14 @@ public class ValidationResult {
 		if ( ! isvalid()) results.add(new ValidationResult(false, getMesssage()));
 	}
 
-	// orepend the fieldname to message
+	// prepend the fieldname to message
 	public void collectIfInvalid(List<ValidationResult> results, String fieldName) {
 		if ( ! isvalid()) results.add(new ValidationResult(false, fieldName + " : " + getMesssage()));
+	}
+
+	// format the message using fieldname
+	public void collectIfInvalidWithFieldName(List<ValidationResult> results, String fieldName) {
+		if ( ! isvalid()) results.add(new ValidationResult(false, format(getMesssage(), fieldName)));
 	}
 
 	public String getMesssage() {

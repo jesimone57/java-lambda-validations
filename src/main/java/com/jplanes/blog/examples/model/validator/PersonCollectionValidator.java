@@ -20,10 +20,10 @@ public class PersonCollectionValidator implements IPersonCollectionValidator {
 	public void validate(Person person) {
 
 		notNull.and(between(2, 12))
-				.test(person.getFirstName()).collectIfInvalid("firstname must not be null and between 2 and 12 characters long", results);
+				.test(person.getFirstName()).collectIfInvalidWithMessage("firstname must not be null and between 2 and 12 characters long", results);
 
 		notNull.and(between(4, 30))
-				.test(person.getLastName()).collectIfInvalid("lastname must not be null and between 4 and 30 characters long", results);
+				.test(person.getLastName()).collectIfInvalidWithMessage("lastname must not be null and between 4 and 30 characters long", results);
 
 		notNull.and(between(3, 50)).and(contains("@"))
 				.test(person.getEmail()).collectIfInvalid(results, "email");
@@ -32,7 +32,7 @@ public class PersonCollectionValidator implements IPersonCollectionValidator {
 				.test(person.getAge()).collectIfInvalid(results);
 
 		matches("bill").or(matches("william"))
-				.test(person.getFirstName()).collectIfInvalid(String.format("firstname %s does not match bill or william", person.getFirstName()), results);
+				.test(person.getFirstName()).collectIfInvalidWithMessage(String.format("firstname %s does not match bill or william", person.getFirstName()), results);
 	}
 
 	@Override
